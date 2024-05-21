@@ -57,8 +57,6 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: "red",
-    borderWidth: 1,
     width: "100%",
     alignItems: "center",
     alignContent: "center",
@@ -81,14 +79,12 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 40,
     marginBottom: 5,
-    borderColor: "red",
-    borderWidth: 1,
   },
 
   input: {
     height: 50,
     padding: 10,
-    borderColor: "red",
+    borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 7,
     textAlign: "left",
@@ -96,7 +92,8 @@ const styles = StyleSheet.create({
 
   buttonView: {
     width: "100%",
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
+    marginTop: 20,
   },
 
   button: {
