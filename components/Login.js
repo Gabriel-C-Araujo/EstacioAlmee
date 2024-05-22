@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   Image,
   Pressable,
   StyleSheet,
