@@ -1,21 +1,55 @@
-function printCalendar() {
-    const now = new Date();
-    const month = now.getMonth();
-    const year = now.getFullYear();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
+const readline = require('readline');
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
-    console.log(`\n${new Date(year, month).toLocaleString('default', {month: 'long'})} ${year}`);
+let currentDate = new Date();
 
-    // Preenchendo os dias vazios antes do primeiro dia do mês
-    for (let i = 0; i < firstDayOfMonth; i++) {
-        console.log("   ");
+function renderCalendar(date) {
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  console.log(`\n${date.toLocaleString('pt-BR', { month: 'long' })} ${year}`);
+  daysOfWeek.forEach(day => {
+    process.stdout.write(`${day} `);
+  });
+  console.log('');
+
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    process.stdout.write('    ');
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    process.stdout.write(day.toString().padStart(3, ' ') + ' ');
+    if ((firstDayOfMonth + day) % 7 === 0) {
+      console.log('');
     }
-
-    // Preenchendo os dias do mês
-    for (let i = 1; i <= daysInMonth; i++) {
-        console.log(`${i.toString().padStart(4)}  `); // padStart garante que todos os dias tenham 4 caracteres
-    }
+  }
+  console.log('\n');
 }
 
-printCalendar();
+function askForNextAction() {
+  rl.question('Digite "a" para mês anterior, "p" para próximo mês, ou "s" para sair: ', (answer) => {
+    if (answer.toLowerCase() === 'a') {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar(currentDate);
+      askForNextAction();
+    } else if (answer.toLowerCase() === 'p') {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar(currentDate);
+      askForNextAction();
+    } else if (answer.toLowerCase() === 's') {
+      rl.close();
+    } else {
+      console.log('Opção inválida, tente novamente.');
+      askForNextAction();
+    }
+  });
+}
+
+renderCalendar(currentDate);
+askForNextAction();
