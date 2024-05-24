@@ -73,6 +73,19 @@
             font-weight: bold;
             color: #000;
         }
+        .calendar .has-description {
+            /* default style if no color selected */
+            background-color: #a5d6a7;
+        }
+        .calendar .description-green {
+            background-color: #a5d6a7;
+        }
+        .calendar .description-gray {
+            background-color: #b0bec5;
+        }
+        .calendar .description-red {
+            background-color: #ef9a9a;
+        }
         /* Modal Styles */
         .modal {
             display: none;
@@ -117,6 +130,72 @@
             text-decoration: none;
             cursor: pointer;
         }
+        #descriptionInput {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+        #descriptionInput:focus {
+            border-color: #2196F3;
+            outline: none;
+        }
+        #saveDescription {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #saveDescription:hover {
+            background-color: #1976D2;
+        }
+        .emoji-picker {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+        .emoji-picker span {
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .emoji-picker span:hover {
+            transform: scale(1.3);
+        }
+        .color-picker {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+        .color-picker span {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s, border 0.3s;
+        }
+        .color-green {
+            background-color: #a5d6a7;
+        }
+        .color-gray {
+            background-color: #b0bec5;
+        }
+        .color-red {
+            background-color: #ef9a9a;
+        }
+        .color-picker span:hover {
+            transform: scale(1.2);
+        }
+        .color-picker span.selected {
+            border-color: #2196F3;
+        }
     </style>
 </head>
 <body>
@@ -141,15 +220,28 @@
             <tbody id="calendarBody"></tbody>
         </table>
     </div>
-
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="modalDate">Some text in the Modal..</p>
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modalDate"></p>
+        <input type="text" id="descriptionInput" placeholder="Adicione uma descrição">
+        <div class="emoji-picker">
+            <span class="emoji" data-emoji="😊">😊</span>
+            <span class="emoji" data-emoji="🎉">🎉</span>
+            <span class="emoji" data-emoji="❤️">❤️</span>
+            <span class="emoji" data-emoji="📅">📅</span>
+            <span class="emoji" data-emoji="✨">✨</span>
         </div>
+        <div class="color-picker">
+            <span class="color-green" data-color="green"></span>
+            <span class="color-gray" data-color="gray"></span>
+            <span class="color-red" data-color="red"></span>
+        </div>
+        <button id="saveDescription">Salvar</button>
     </div>
+</div>
 
-    <script src="calendar.js"></script>
+<script src="calendar.js"></script>
 </body>
 </html>
