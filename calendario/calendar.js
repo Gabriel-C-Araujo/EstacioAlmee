@@ -5,19 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextButton = document.getElementById('next');
 
     const modal = document.getElementById("myModal");
-    const modalContent = document.getElementById("modalDate");
-    const descriptionInput = document.getElementById("descriptionInput");
-    const saveDescriptionButton = document.getElementById("saveDescription");
+    const modalMessage = document.getElementById("modalMessage");
     const closeModal = document.getElementsByClassName("close")[0];
-    const emojiPicker = document.querySelectorAll('.emoji-picker .emoji');
-    const colorPicker = document.querySelectorAll('.color-picker span');
+    const modalButton = document.getElementById("modalButton");
 
     let currentDate = new Date();
-    let selectedDate = {};
-    let selectedEmoji = '';
-    let selectedColor = '';
-
-    const descriptions = {};
 
     function renderCalendar(date) {
         calendarBody.innerHTML = '';
@@ -41,20 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if (day > lastDate) {
                     break;
                 } else {
-                    const cellKey = `${day}-${month}-${year}`;
-                    cell.innerText = day;
-                    if (descriptions[cellKey]) {
-                        cell.innerText += ` ${descriptions[cellKey].emoji}`;
-                        cell.classList.add('has-description');
-                        cell.classList.add(descriptions[cellKey].color);
-                    }
-                    cell.setAttribute('data-day', day);
+                    const cellDay = day; // Capture the current value of day
+                    cell.innerText = cellDay;
+                    cell.setAttribute('data-day', cellDay);
                     cell.setAttribute('data-month', month);
                     cell.setAttribute('data-year', year);
                     cell.addEventListener('click', function() {
-                        openModal(cell.getAttribute('data-day'), cell.getAttribute('data-month'), cell.getAttribute('data-year'));
+                        openModal(cellDay, month, year);
                     });
-                    if (day === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+                    if (cellDay === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
                         cell.classList.add('today');
                     }
                     day++;
@@ -66,47 +53,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openModal(day, month, year) {
-        selectedDate = { day, month, year };
-        const cellKey = `${day}-${month}-${year}`;
-        modal.style.display = "block";
-        modalContent.innerText = `Você selecionou o dia ${day} de ${new Date(year, month).toLocaleString('default', { month: 'long' })}, ${year}`;
-        descriptionInput.value = descriptions[cellKey] ? descriptions[cellKey].description : '';
-        selectedEmoji = descriptions[cellKey] ? descriptions[cellKey].emoji : '';
-        selectedColor = descriptions[cellKey] ? descriptions[cellKey].color : '';
-        emojiPicker.forEach(emoji => emoji.style.border = (descriptions[cellKey] && descriptions[cellKey].emoji === emoji.getAttribute('data-emoji')) ? '2px solid #2196F3' : 'none');
-        colorPicker.forEach(color => color.style.border = (descriptions[cellKey] && descriptions[cellKey].color === color.getAttribute('data-color')) ? '2px solid #2196F3' : 'none');
+        modalMessage.innerText = `Você clicou no dia ${day} de ${new Date(year, month).toLocaleString('default', { month: 'long' })}, ${year}`;
+        modal.style.display = "flex";
     }
 
-    emojiPicker.forEach(emoji => {
-        emoji.addEventListener('click', function() {
-            emojiPicker.forEach(e => e.style.border = 'none');
-            emoji.style.border = '2px solid #2196F3';
-            selectedEmoji = emoji.getAttribute('data-emoji');
-        });
-    });
-
-    colorPicker.forEach(color => {
-        color.addEventListener('click', function() {
-            colorPicker.forEach(c => c.style.border = 'none');
-            color.style.border = '2px solid #2196F3';
-            selectedColor = color.getAttribute('data-color');
-        });
-    });
-
-    saveDescriptionButton.addEventListener('click', function() {
-        const { day, month, year } = selectedDate;
-        const cellKey = `${day}-${month}-${year}`;
-        descriptions[cellKey] = {
-            description: descriptionInput.value,
-            emoji: selectedEmoji,
-            color: selectedColor
-        };
-        modal.style.display = "none";
-        renderCalendar(currentDate);
-        alert('Descrição salva com sucesso!');
-    });
-
     closeModal.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    modalButton.onclick = function() {
         modal.style.display = "none";
     }
 
