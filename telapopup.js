@@ -8,7 +8,7 @@ const EmojiPopup = ({ isVisible, onClose, onSelectEmoji }) => {
 
   const handleEmojiSelect = (emoji) => {
     onSelectEmoji(emoji);
-    //onClose();
+
   };
 
   return (
