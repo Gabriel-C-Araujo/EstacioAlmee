@@ -16,7 +16,7 @@ const EmojiPopup = ({ isVisible, onClose}) => {
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
         <View style={{ backgroundColor: 'white', padding: 20, borderRadius: 10, width: '80%' }}>
           <TextInput
-            placeholder="Digite alguma coisa..."
+            placeholder="Descreva seu dia: "
             value={text}
             onChangeText={setText}
             style={{ borderBottomWidth: 1, marginBottom: 10 }}
