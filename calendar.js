@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import EmojiPopup from './telapopup';
 
 LocaleConfig.locales['pt-br'] = {
   monthNames: [
@@ -21,21 +22,24 @@ LocaleConfig.defaultLocale = 'pt-br';
 
 const CalendarScreen = () => {
   const [selectedDate, setSelectedDate] = useState('');
+  const [showEmojiPopup, setshowEmojiPopup] = useState(false);
+
+  const handleDayPress = (day) => {
+    setSelectedDate(day.dateString);
+    setshowEmojiPopup(true);
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Calendário</Text>
       <Calendar
-     
-        onDayPress={(day) => setSelectedDate(day.dateString)}
-    
+        onDayPress={handleDayPress}
         markedDates={{
           [selectedDate]: {
             selected: true,
             selectedColor: 'blue'
           }
         }}
-   
         theme={{
           selectedDayBackgroundColor: 'blue',
           selectedDayTextColor: '#ffffff',
@@ -44,6 +48,12 @@ const CalendarScreen = () => {
         }}
       />
       <Text style={styles.selectedDate}>Data Selecionada: {selectedDate}</Text>
+      {showEmojiPopup && (
+        <EmojiPopup
+        isVisible={true}
+        onClose={() => setshowEmojiPopup(false)}
+      />
+      )}
     </View>
   );
 };

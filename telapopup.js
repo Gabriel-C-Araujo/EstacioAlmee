@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Button, TextInput, Modal, TouchableOpacity } from 'react-native';
 
-const EmojiPopup = ({ isVisible, onClose, onSelectEmoji }) => {
+const EmojiPopup = ({ isVisible, onClose}) => {
   const [text, setText] = useState('');
 
   const emojis = ['😡', '🙁', '😐', '🙂', '😄'];
-
-  const handleEmojiSelect = (emoji) => {
-    onSelectEmoji(emoji);
-
-  };
 
   return (
     <Modal
@@ -48,10 +43,6 @@ const PopupTela = () => {
     setPopupVisible(!popupVisible);
   };
 
-  const handleEmojiSelect = (emoji) => {
-    setSelectedEmoji(emoji);
-  };
-
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Button title="Mostrar Pop-up" onPress={togglePopup} />
@@ -59,8 +50,8 @@ const PopupTela = () => {
       <EmojiPopup
         isVisible={popupVisible}
         onClose={togglePopup}
-        onSelectEmoji={handleEmojiSelect}
       />
+      <View ref={(container) => { this.container = container; }} />
     </View>
   );
 };
