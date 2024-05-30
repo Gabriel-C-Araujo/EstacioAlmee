@@ -42,12 +42,7 @@ export default function Login() {
       <View style={styles.buttonView}>
         <Pressable
           style={styles.button}
-          onPress={() =>
-            Alert.alert(
-              "Login Successfuly!",
-              "see you in my instagram if you have questions : must_ait6"
-            )
-          }
+          onPress={() => Alert.alert("Sucesso!", "Redirecionando...")}
         >
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
