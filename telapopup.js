@@ -6,6 +6,10 @@ const EmojiPopup = ({ isVisible, onClose}) => {
 
   const emojis = ['😡', '🙁', '😐', '🙂', '😄'];
 
+function handleEmojiSelect(emoji){
+  
+}
+
   return (
     <Modal
       animationType="slide"
@@ -28,7 +32,7 @@ const EmojiPopup = ({ isVisible, onClose}) => {
               </TouchableOpacity>
             ))}
           </View>
-          <Button title="Fechar" onPress={onClose} />
+          <Button title="Salvar" onPress={onClose} />
         </View>
       </View>
     </Modal>
