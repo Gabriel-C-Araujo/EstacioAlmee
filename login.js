@@ -8,9 +8,10 @@ import {
   TextInput,
   View,
 } from "react-native";
-const logo = require("./../assets/logo.png");
 
-export default function Login() {
+const logo = require("./assets/logo.png");
+
+export default function Login({ navigation }) {
   const { username, setUsername } = useState("");
   const { password, setPassword } = useState("");
 
@@ -42,7 +43,7 @@ export default function Login() {
       <View style={styles.buttonView}>
         <Pressable
           style={styles.button}
-          onPress={() => Alert.alert("Sucesso!", "Redirecionando...")}
+          onPress={() => navigation.navigate('Calendario')}
         >
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
